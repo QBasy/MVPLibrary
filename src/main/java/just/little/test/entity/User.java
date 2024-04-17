@@ -172,11 +172,11 @@ public class User implements JmixUserDetails, HasTimeZone {
         this.timeZoneId = timeZoneId;
     }
 
-    public boolean isHasbook() {
+    public Boolean getHasBook() {
         return hasBook;
     }
 
-    public void setHasbook(boolean hasbook) {
-        this.hasBook = hasbook;
+    public void setHasBook(final Boolean hasBook) {
+        this.hasBook = hasBook;
     }
 }

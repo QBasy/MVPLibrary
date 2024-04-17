@@ -11,10 +11,10 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
-@Table(name = "BOOKS")
+@Table(name = "BOOK")
 @JmixEntity
 @Entity
-public class Books {
+public class Book {
 
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)

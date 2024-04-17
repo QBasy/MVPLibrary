@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
-      focusComponent="register">
+      focusComponent="register"
+      title="msg://register.title">
     <layout justifyContent="CENTER" alignItems="CENTER">
-        <registerForm title="registerForm">
-            <formLayout>
-                <textField label="First Name" colspan="2"/>
-                <textField label="Last Name" colspan="2"/>
-                <textField label="Username" colspan="2"/>
-                <textField label="Email" colspan="2"/>
-                <passwordField label="Password"/>
-                <passwordField label="Repeat Password"/>
+            <formLayout id="register">
+                <textField id="fname" label="First Name" colspan="2"/>
+                <textField id="lname" label="Last Name" colspan="2"/>
+                <textField id="username" label="Username" colspan="2"/>
+                <textField id="email" label="Email" colspan="2"/>
+                <passwordField id="password" label="Password"/>
+                <passwordField id="rpassword" label="Repeat Password"/>
                 <formItem>
-                    <button text="Submit"/>
+                    <button id="btn" text="Submit"/>
                 </formItem>
             </formLayout>
-        </registerForm>
     </layout>
 </view>

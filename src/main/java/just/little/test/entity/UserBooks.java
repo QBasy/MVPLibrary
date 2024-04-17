@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 @JmixEntity
-@Table(name = "USER_BOOKS")
+@Table(name = "user_book")
 @Entity
 public class UserBooks {
     @JmixGeneratedValue

@@ -1,97 +1,91 @@
 package just.little.test.view.register;
 
 
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.login.AbstractLogin.LoginEvent;
-import com.vaadin.flow.i18n.LocaleChangeEvent;
-import com.vaadin.flow.i18n.LocaleChangeObserver;
-import com.vaadin.flow.server.VaadinSession;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.textfield.PasswordField;
+import com.vaadin.flow.component.textfield.TextField;
 import io.jmix.core.CoreProperties;
-import io.jmix.core.MessageTools;
-import io.jmix.core.security.AccessDeniedException;
-import io.jmix.flowui.component.formlayout.JmixFormLayout;
-import io.jmix.flowui.component.loginform.JmixLoginForm;
-import io.jmix.flowui.kit.component.ComponentUtils;
+import io.jmix.core.security.UserRepository;
 import io.jmix.flowui.view.*;
-import io.jmix.securityflowui.authentication.AuthDetails;
-import io.jmix.securityflowui.authentication.LoginViewSupport;
-import just.little.test.view.login.LoginView;
 import just.little.test.view.main.MainView;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
 import com.vaadin.flow.router.Route;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
-
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 @Route(value = "register", layout = MainView.class)
 @ViewController("RegisterView")
 @ViewDescriptor("register-view.xml")
-public class RegisterView extends StandardView implements LocaleChangeObserver {
-    private static final Logger log = LoggerFactory.getLogger(LoginView.class);
+public class RegisterView extends StandardView {
+    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
     protected CoreProperties coreProperties;
 
     @Autowired
-    private LoginViewSupport loginViewSupport;
-
-    @Autowired
     private MessageBundle messageBundle;
 
     @Autowired
-    private MessageTools messageTools;
+    private UserRepository userRepository;
 
-    @ViewComponent
-    private JmixLoginForm register;
+    private TextField firstName;
+    private TextField lastName;
+    private TextField username;
+    private TextField email;
+    private PasswordField password;
+    private PasswordField repeatPassword;
+    private Button submitButton;
 
-    @Value("${ui.login.defaultUsername:}")
-    private String defaultUsername;
+    @Autowired
+    public RegisterView(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
-    @Value("${ui.login.defaultPassword:}")
-    private String defaultPassword;
+    protected void onAttach(AttachEvent attachEvent) {
+        firstName = new TextField();
+        firstName.setId("fname");
 
-    protected void initDefaultCredentials() {
-        if (StringUtils.isNotBlank(defaultUsername)) {
-            register.setUsername(defaultUsername);
-        }
+        lastName = new TextField();
+        lastName.setId("lname");
 
-        if (StringUtils.isNotBlank(defaultPassword)) {
-            register.setPassword(defaultPassword);
-        }
+        username = new TextField();
+        username.setId("username");
+
+        email = new TextField();
+        email.setId("email");
+
+        password = new PasswordField();
+        password.setId("password");
+
+        repeatPassword = new PasswordField();
+        repeatPassword.setId("rpassword");
+
+        submitButton = new Button("Submit");
+        repeatPassword.setId("btn");
     }
 
     @Subscribe
-    public void onInit(final InitEvent event) {
-        initLocales();
-        initDefaultCredentials();
+    protected void onSubmitClick(ClickEvent<Button> event) {
+        String firstNameValue = firstName.getValue();
+        String lastNameValue = lastName.getValue();
+        String usernameValue = username.getValue();
+        String emailValue = email.getValue();
+        String passwordValue = password.getValue();
+        String repeatPasswordValue = repeatPassword.getValue();
+
+        if (validate(passwordValue, repeatPasswordValue)) {
+            return;
+        }
+
+        String query = "INSERT INTO \"user_\" (username,first_name,last_name,email,password) VALUES (?,?,?,?,?)";
+        if (submitButton.isEnabled()) {
+            jdbcTemplate.update(query, usernameValue, firstNameValue, lastNameValue, emailValue, passwordValue);
+        }
     }
 
-    protected void initLocales() {
-        LinkedHashMap<Locale, String> locales = coreProperties.getAvailableLocales().stream()
-                .collect(Collectors.toMap(Function.identity(), messageTools::getLocaleDisplayName, (s1, s2) -> s1,
-                        LinkedHashMap::new));
-
-        ComponentUtils.setItemsMap(register, locales);
-
-        register.setSelectedLocale(VaadinSession.getCurrent().getLocale());
-    }
-
-    @Override
-    public void localeChange(final LocaleChangeEvent event) {
-    }
-
-    @Subscribe("register")
-    public void onRegister(final LoginEvent event) {
+    private boolean validate(String password, String repeatPassword) {
+        return !password.equals(repeatPassword);
     }
 }
 
