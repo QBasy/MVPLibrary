@@ -11,6 +11,9 @@
                 <textField label="Email" colspan="2"/>
                 <passwordField label="Password"/>
                 <passwordField label="Repeat Password"/>
+                <formItem>
+                    <button text="Submit"/>
+                </formItem>
             </formLayout>
         </registerForm>
     </layout>

@@ -104,3 +104,4 @@ public class RegisterView extends StandardView implements LocaleChangeObserver {
         }
     }
 }
+
