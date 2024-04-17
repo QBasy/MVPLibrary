@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
-      focusComponent="register"
-      title="msg://register.title">
+      focusComponent="register">
     <layout justifyContent="CENTER" alignItems="CENTER">
         <registerForm title="registerForm">
             <formLayout>
@@ -11,6 +10,9 @@
                 <textField label="Email" colspan="2"/>
                 <passwordField label="Password"/>
                 <passwordField label="Repeat Password"/>
+                <formItem>
+                    <button text="Submit"/>
+                </formItem>
             </formLayout>
         </registerForm>
     </layout>

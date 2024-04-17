@@ -3,7 +3,9 @@
 
     <menu id="application" title="msg://just.little.test/menu.application.title" opened="true">
         <item view="User.list" title="msg://just.little.test.view.user/UserListView.title"/>
-        <item view="Register" title="msg://just.little.test.view.register/register.title"/>
+        <item view="RegisterView" title="msg://just.little.test.view.register/register.title"/>
+        <item view="LoginView" description="msg://menu_config.LoginView.description"
+              title="msg://menu_config.LoginView.title"/>
     </menu>
 
 </menu-config>

@@ -94,9 +94,11 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
             );
         } catch (final BadCredentialsException | DisabledException | LockedException | AccessDeniedException e) {
             log.warn("Login failed for user '{}': {}", event.getUsername(), e.toString());
-            event.getSource().setError(true);
+            login.setError(true);
         }
     }
+
+
 
     @Override
     public void localeChange(final LocaleChangeEvent event) {

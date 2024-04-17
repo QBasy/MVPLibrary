@@ -92,15 +92,6 @@ public class RegisterView extends StandardView implements LocaleChangeObserver {
 
     @Subscribe("register")
     public void onRegister(final LoginEvent event) {
-        try {
-            loginViewSupport.authenticate(
-                    AuthDetails.of(event.getUsername(), event.getPassword())
-                            .withLocale(register.getSelectedLocale())
-                            .withRememberMe(register.isRememberMe())
-            );
-        } catch (final BadCredentialsException | DisabledException | LockedException | AccessDeniedException e) {
-            log.warn("Register failed for user '{}': {}", event.getUsername(), e.toString());
-            event.getSource().setError(true);
-        }
     }
 }
+
