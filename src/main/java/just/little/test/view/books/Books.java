@@ -12,4 +12,5 @@ import io.jmix.flowui.view.ViewDescriptor;
 @ViewController("Books")
 @ViewDescriptor("Books.xml")
 public class Books extends StandardView {
+
 }
