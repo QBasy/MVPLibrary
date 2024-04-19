@@ -31,7 +31,7 @@ public class Book {
     @Column(name = "AUTHOR")
     private String author;
 
-    @Column(name = "avaliable")
+    @Column(name = "available")
     private Boolean avaliable;
 
     @Size(max = 17)

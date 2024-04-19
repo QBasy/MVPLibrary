@@ -23,10 +23,6 @@ public class BookHistory {
     private UUID bookID;
 
     @NotNull
-    @Column(name = "USERS", nullable = false)
-    private String users;
-
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -64,10 +60,6 @@ public class BookHistory {
         this.user = user;
     }
 
-    public String getUsers() {
-        return users;
-    }
-
     public UUID getId() {
         return id;
     }
@@ -82,5 +74,9 @@ public class BookHistory {
 
     public void setBookID(UUID bookID) {
         this.bookID = bookID;
+    }
+
+    private class Users {
+
     }
 }

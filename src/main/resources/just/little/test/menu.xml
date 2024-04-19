@@ -6,7 +6,7 @@
         <item view="RegisterView" title="msg://just.little.test.view.register/register.title"/>
         <item view="LoginView" description="msg://menu_config.LoginView.description"
               title="msg://menu_config.LoginView.title"/>
-        <item view="Books" title="msg://just.little.test.view.books/books.title"/>
+        <item view="Book.list" title="msg://just.little.test.view.book/bookListView.title"/>
     </menu>
 
 </menu-config>
