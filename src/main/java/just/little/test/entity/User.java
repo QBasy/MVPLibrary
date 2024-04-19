@@ -11,9 +11,8 @@ import io.jmix.security.authentication.JmixUserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
+
+import java.util.*;
 
 @JmixEntity
 @Entity
@@ -60,6 +59,17 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     @Transient
     protected Collection<? extends GrantedAuthority> authorities;
+
+    @OneToMany(mappedBy = "user")
+    private Set<BookHistory> bookHistories = new LinkedHashSet<>();
+
+    public Set<BookHistory> getBookHistories() {
+        return bookHistories;
+    }
+
+    public void setBookHistories(Set<BookHistory> bookHistories) {
+        this.bookHistories = bookHistories;
+    }
 
     public UUID getId() {
         return id;
