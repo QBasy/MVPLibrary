@@ -7,6 +7,8 @@
         <item view="LoginView" description="msg://menu_config.LoginView.description"
               title="msg://menu_config.LoginView.title"/>
         <item view="Book.list" title="msg://just.little.test.view.book/bookListView.title"/>
+        <item view="UserBooks.list" title="msg://just.little.test.view.userbooks/userBooksListView.title"/>
+        <item view="BookHistory.list" title="msg://just.little.test.view.bookhistory/bookHistoryListView.title"/>
     </menu>
 
 </menu-config>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://userBooksListView.title"
+      focusComponent="userBooksesDataGrid">
+    <data>
+        <collection id="userBooksesDc"
+                    class="just.little.test.entity.UserBooks">
+            <fetchPlan extends="_base"/>
+            <loader id="userBooksesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from UserBooks e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="userBooksesDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="addBtn" action="userBooksesDataGrid.add"/>
+            <button id="createBtn" action="userBooksesDataGrid.create"/>
+            <button id="editBtn" action="userBooksesDataGrid.edit"/>
+            <button id="readBtn" action="userBooksesDataGrid.read"/>
+            <button id="removeBtn" action="userBooksesDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="userBooksesDl"/>
+        </hbox>
+        <dataGrid id="userBooksesDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="userBooksesDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="add" type="list_add"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="read" type="list_read"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="userID"/>
+                <column property="bookID"/>
+                <column property="bookId"/>
+                <column property="dateGiven"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

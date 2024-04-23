@@ -1,7 +1,5 @@
 package just.little.test.view.book;
 
-import just.little.test.entity.Book;
-
 import just.little.test.view.main.MainView;
 
 import com.vaadin.flow.router.Route;

@@ -6,7 +6,7 @@
         <ModuleSettings>
           <option name="dataStoreOptionsV2">
             <map>
-              <entry key="library">
+              <entry key="main">
                 <value>
                   <DataStoreSettingsV2>
                     <option name="generateDdlType" value="CREATE_AND_UPDATE" />
@@ -14,11 +14,6 @@
                       <option value="postgres" />
                     </option>
                   </DataStoreSettingsV2>
-                </value>
-              </entry>
-              <entry key="main">
-                <value>
-                  <DataStoreSettingsV2 />
                 </value>
               </entry>
             </map>

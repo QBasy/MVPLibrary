@@ -3,86 +3,56 @@ package just.little.test.entity;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.data.DdlGeneration;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
-import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.Date;
 import java.util.UUID;
 
-@Table(name = "BOOK")
+@DdlGeneration(value = DdlGeneration.DbScriptGenerationMode.DISABLED)
 @JmixEntity
+@Table(name = "book")
 @Entity
 public class Book {
-
     @JmixGeneratedValue
-    @Column(name = "ID", nullable = false)
+    @Column(name = "id", nullable = false)
     @Id
     private UUID id;
 
-    @NotNull
-    @InstanceName
-    @Column(name = "TITLE")
-    private String title;
-
-    @NotNull
-    @Column(name = "AUTHOR")
+    @Column(name = "author")
     private String author;
 
     @Column(name = "available")
-    private Boolean avaliable;
+    private Boolean available;
 
-    @Size(max = 17)
-    @Column(name = "isbn", length = 17)
-    private String isbn;
-
-    @OneToMany(mappedBy = "user")
-    private Set<UserBooks> userBooks = new LinkedHashSet<>();
-
-    @Size(max = 15)
-    @NotNull
     @Column(name = "genre", nullable = false, length = 15)
     private String genre;
 
-    @NotNull
+    @Column(name = "isbn", length = 17)
+    private String isbn;
+
     @Column(name = "publication_date", nullable = false)
-    private LocalDate publicationDate;
+    @Temporal(TemporalType.DATE)
+    private Date publicationDate;
 
-    @OneToMany(mappedBy = "book")
-    private Set<BookHistory> bookHistories = new LinkedHashSet<>();
+    @InstanceName
+    @Column(name = "title")
+    private String title;
 
-    public Set<BookHistory> getBookHistories() {
-        return bookHistories;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBookHistories(Set<BookHistory> bookHistories) {
-        this.bookHistories = bookHistories;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public LocalDate getPublicationDate() {
+    public Date getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(LocalDate publicationDate) {
+    public void setPublicationDate(Date publicationDate) {
         this.publicationDate = publicationDate;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public Set<UserBooks> getUserBooks() {
-        return userBooks;
-    }
-
-    public void setUserBooks(Set<UserBooks> userBooks) {
-        this.userBooks = userBooks;
     }
 
     public String getIsbn() {
@@ -93,20 +63,20 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public Boolean getAvaliable() {
-        return avaliable;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setAvaliable(Boolean avaliable) {
-        this.avaliable = avaliable;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
-    public UUID getId() {
-        return id;
+    public Boolean getAvailable() {
+        return available;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     public String getAuthor() {
@@ -117,12 +87,11 @@ public class Book {
         this.author = author;
     }
 
-    public String getTitle() {
-        return title;
+    public UUID getId() {
+        return id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setId(UUID id) {
+        this.id = id;
     }
-
 }
